@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="clr-namespace:ControlzEx.Controls"
+                    xmlns:controlz="clr-namespace:ControlzEx">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Styles/Colors.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/Glow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/WindowChromeWindow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/ContentControlEx.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- set up default styles for custom Controlz controls -->
+    <Style BasedOn="{StaticResource MahApps.Metro.Styles.MetroThumbContentControl}" TargetType="{x:Type controls:ThumbContentControl}" />
+ 
+</ResourceDictionary>

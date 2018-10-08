@@ -1,0 +1,9 @@
+﻿<Application x:Class="WindowShowcase.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:controlzEx="urn:controlzex"
+             xmlns:local="clr-namespace:WindowShowcase"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+    </Application.Resources>
+</Application>

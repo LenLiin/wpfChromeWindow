@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="MSBuild.Sdk.Extras" ToolsVersion="15.0">
+  <!-- Project properties -->
+  <PropertyGroup>
+    <AssemblyName>MahApps.Metro</AssemblyName>
+    <RootNamespace>MahApps.Metro</RootNamespace>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <ExtrasDefaultPageExcludes>$(ExtrasDefaultPageExcludes);**\*.Template.xaml</ExtrasDefaultPageExcludes>
+    <FileUpgradeFlags>40</FileUpgradeFlags>
+    <UpgradeBackupLocation>C:\Users\liuzhenfei\source\Repos\WpfApp1\Backup\</UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
+  </PropertyGroup>
+  <!-- Sign assembly -->
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <SignAssembly>True</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(MSBuildProjectDirectory)\..\SharedKey.snk</AssemblyOriginatorKeyFile>
+    <DelaySign>false</DelaySign>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <!-- Items include -->
+  <ItemGroup>
+    <EmbeddedResource Include="**\*.Template.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="**\GeneratorParameters.json" />
+    <Page Remove="Styles\Controls.DatePicker.xaml" />
+    <Page Remove="Styles\Controls.PasswordBox.xaml" />
+    <None Include="paket.references" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile DependentUpon="%(Filename)" SubType="Code" Update="$(MSBuildProjectDirectory)\obj\**\*.g$(_SdkLanguageExtension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="ControlzEx" Version="3.0.2.4" />
+  </ItemGroup>
+  <Target Name="GenerateXamlFiles" AfterTargets="CollectPackageReferences">
+    <Exec Command="&quot;$(MSBuildProjectDirectory)\..\packages\XamlColorSchemeGenerator\tools\XamlColorSchemeGenerator.exe&quot; &quot;$(MSBuildProjectDirectory)\Styles\Themes\GeneratorParameters.json&quot;" />
+  </Target>
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>
