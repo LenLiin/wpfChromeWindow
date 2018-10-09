@@ -52,21 +52,21 @@
                                StrokeThickness="0" />
 
                     <!--  the left window commands  -->
-                    <ContentPresenter x:Name="PART_LeftWindowCommands"
+                    <!--<ContentPresenter x:Name="PART_LeftWindowCommands"
                                       Grid.Row="1"
                                       Grid.Column="2"
                                       Height="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
                                       VerticalAlignment="Top"
                                       Panel.ZIndex="1"
                                       Content="{Binding LeftWindowCommands, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                      Focusable="False" />
+                                      Focusable="False" />-->
 
-                    <Controls:WdindowTitleThumb x:Name="PART_WindowTitleThumb"
+                    <!--<Controls:WdindowTitleThumb x:Name="PART_WindowTitleThumb"
                                          Grid.Row="1"
                                          Grid.Column="0"
                                          Grid.ColumnSpan="7"
                                          Style="{StaticResource WindowTitleThumbStyle}"
-                                         UseLayoutRounding="True" />
+                                         UseLayoutRounding="True" />-->
                     <!--  the title bar  -->
                     <Controls:ThumbContentControl x:Name="PART_TitleBar"
                                                        Grid.Row="1"
@@ -88,29 +88,8 @@
                         </ContentControl.Foreground>
                     </Controls:ThumbContentControl>
 
-                    <!--  the right window commands  -->
-                    <ContentPresenter x:Name="PART_RightWindowCommands"
-                                      Grid.Row="1"
-                                      Grid.Column="4"
-                                      Height="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                      VerticalAlignment="Top"
-                                      Panel.ZIndex="1"
-                                      Content="{Binding RightWindowCommands, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                      Focusable="False" />
-
-                    <!--  the window button commands  -->
-                    <ContentPresenter x:Name="PART_WindowButtonCommands"
-                                      Grid.Row="1"
-                                      Grid.RowSpan="2"
-                                      Grid.Column="5"
-                                      Height="{Binding TitleBarHeight, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                      VerticalAlignment="Top"
-                                      Panel.ZIndex="1"
-                                      Content="{Binding WindowButtonCommands, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                      Focusable="False" />
-
                     <!--  the main window content  -->
-                    <Controls:WindowContentControl x:Name="PART_Content"
+                    <Controls:WindowContentControl x:Name="PART_Content" 
                                                   Grid.Row="2"
                                                   Grid.Column="0"
                                                   Grid.ColumnSpan="7"
@@ -121,63 +100,6 @@
                         <ContentPresenter Margin="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderThickness, Converter={StaticResource ThicknessBindingConverter}, ConverterParameter={x:Static Converters:ThicknessSideType.Top}}" UseLayoutRounding="False" />
                     </Controls:WindowContentControl>
 
-                    <!--  disables the main content when a modal flyout is shown  -->
-                    <Rectangle Name="PART_FlyoutModal"
-                               Grid.Row="1"
-                               Grid.RowSpan="2"
-                               Grid.Column="1"
-                               Grid.ColumnSpan="5"
-                               Fill="{DynamicResource BlackColorBrush}"
-                               Opacity="0.5"
-                               Visibility="Hidden" />
-                    <!--<Controls:WdindowTitleThumb x:Name="PART_FlyoutModalDragMoveThumb"
-                                         Grid.Row="1"
-                                         Grid.Column="0"
-                                         Grid.ColumnSpan="7"
-                                         Style="{StaticResource WindowTitleThumbStyle}"
-                                         Visibility="{Binding ElementName=PART_FlyoutModal, Path=Visibility, Mode=OneWay}" />-->
-
-                    <!--  flyouts  -->
-                    <ContentControl Grid.Row="0"
-                                    Grid.RowSpan="3"
-                                    Grid.Column="0"
-                                    Grid.ColumnSpan="7"
-                                    VerticalAlignment="Stretch"
-                                    Panel.ZIndex="2"
-                                    Content="{Binding Flyouts, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}"
-                                    Focusable="False"
-                                    KeyboardNavigation.TabNavigation="None" />
-
-                    <!--  inactive dialog container  -->
-                    <Grid x:Name="PART_MetroInactiveDialogsContainer"
-                          Grid.Row="1"
-                          Grid.RowSpan="2"
-                          Grid.Column="1"
-                          Grid.ColumnSpan="5"
-                          Panel.ZIndex="3"
-                          FocusVisualStyle="{x:Null}" />
-
-                    <!--  overlay effect container  -->
-                    <!--<Grid x:Name="PART_OverlayBox"
-                          Grid.Row="1"
-                          Grid.RowSpan="2"
-                          Grid.Column="1"
-                          Grid.ColumnSpan="5"
-                          Panel.ZIndex="4"
-                          Background="{TemplateBinding OverlayBrush}"
-                          FocusVisualStyle="{x:Null}"
-                          Focusable="False"
-                          Opacity="0"
-                          Visibility="Hidden" />-->
-
-                    <!--  active dialog container  -->
-                    <Grid x:Name="PART_MetroActiveDialogContainer"
-                          Grid.Row="1"
-                          Grid.RowSpan="2"
-                          Grid.Column="1"
-                          Grid.ColumnSpan="5"
-                          Panel.ZIndex="5"
-                          FocusVisualStyle="{x:Null}" />
                 </Grid>
             </AdornerDecorator>
 

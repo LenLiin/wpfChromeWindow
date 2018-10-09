@@ -28,7 +28,7 @@
     [TemplatePart(Name = PART_MetroActiveDialogContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_MetroInactiveDialogsContainer, Type = typeof(Grid))]
     [TemplatePart(Name = PART_FlyoutModal, Type = typeof(Rectangle))]
-
+    [TemplatePart(Name = PART_Content, Type = typeof(WindowContentControl))]
     public class WindowChromeWindow : Window
     {
         private const string PART_Icon = "PART_Icon";
@@ -51,6 +51,7 @@
 
 
         UIElement titleBar;
+        UIElement titleBarBackground;
         Thumb windowTitleThumb;
 
         static WindowChromeWindow()
@@ -62,6 +63,16 @@
 
             AllowsTransparencyProperty.OverrideMetadata(typeof(WindowChromeWindow), new FrameworkPropertyMetadata(false));
         }
+
+
+        public static readonly RoutedEvent WindowTransitionCompletedEvent = EventManager.RegisterRoutedEvent("WindowTransitionCompleted", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(WindowChromeWindow));
+
+        public event RoutedEventHandler WindowTransitionCompleted
+        {
+            add { this.AddHandler(WindowTransitionCompletedEvent, value); }
+            remove { this.RemoveHandler(WindowTransitionCompletedEvent, value); }
+        }
+
 
         public WindowChromeWindow()
         {
@@ -75,10 +86,45 @@
 
         public override void OnApplyTemplate()
         {
+            base.OnApplyTemplate();
 
+            //LeftWindowCommandsPresenter = GetTemplateChild(PART_LeftWindowCommands) as ContentPresenter;
+            //RightWindowCommandsPresenter = GetTemplateChild(PART_RightWindowCommands) as ContentPresenter;
+            //WindowButtonCommandsPresenter = GetTemplateChild(PART_WindowButtonCommands) as ContentPresenter;
+
+            //if (LeftWindowCommands == null)
+            //    LeftWindowCommands = new WindowCommands();
+            //if (RightWindowCommands == null)
+            //    RightWindowCommands = new WindowCommands();
+            //if (WindowButtonCommands == null)
+            //    WindowButtonCommands = new WindowButtonCommands();
+
+            //LeftWindowCommands.ParentWindow = this;
+            //RightWindowCommands.ParentWindow = this;
+            //WindowButtonCommands.ParentWindow = this;
+
+            //overlayBox = GetTemplateChild(PART_OverlayBox) as Grid;
+            //metroActiveDialogContainer = GetTemplateChild(PART_MetroActiveDialogContainer) as Grid;
+            //metroInactiveDialogContainer = GetTemplateChild(PART_MetroInactiveDialogsContainer) as Grid;
+            //flyoutModal = (Rectangle)GetTemplateChild(PART_FlyoutModal);
+            //flyoutModal.PreviewMouseDown += FlyoutsPreviewMouseDown;
+            //this.PreviewMouseDown += FlyoutsPreviewMouseDown;
+
+            //icon = GetTemplateChild(PART_Icon) as FrameworkElement;
             titleBar = GetTemplateChild(PART_TitleBar) as UIElement;
+            titleBarBackground = GetTemplateChild(PART_WindowTitleBackground) as UIElement;
             this.windowTitleThumb = GetTemplateChild(PART_WindowTitleThumb) as Thumb;
-            this.SetWindowEvents();
+            //this.flyoutModalDragMoveThumb = GetTemplateChild(PART_FlyoutModalDragMoveThumb) as Thumb;
+
+            this.SetVisibiltyForAllTitleElements();
+
+            var windowContentControl = GetTemplateChild(PART_Content) as WindowContentControl;
+
+            if (windowContentControl != null)
+            {
+                windowContentControl.TransitionCompleted += (sender, args) => this.RaiseEvent(new RoutedEventArgs(WindowTransitionCompletedEvent));
+            }
+
         }
         protected IntPtr CriticalHandle
         {
@@ -90,6 +136,27 @@
                 return (IntPtr)value;
             }
         }
+
+        private void SetVisibiltyForAllTitleElements()
+        {
+            //this.SetVisibiltyForIcon();
+            var newVisibility = this.TitleBarHeight > 0  ? Visibility.Visible : Visibility.Collapsed;
+
+            this.titleBar?.SetCurrentValue(VisibilityProperty, newVisibility);
+            this.titleBarBackground?.SetCurrentValue(VisibilityProperty, newVisibility);
+
+            //var leftWindowCommandsVisibility = this.LeftWindowCommandsOverlayBehavior.HasFlag(WindowCommandsOverlayBehavior.HiddenTitleBar) && !this.UseNoneWindowStyle ? Visibility.Visible : newVisibility;
+            //this.LeftWindowCommandsPresenter?.SetCurrentValue(VisibilityProperty, leftWindowCommandsVisibility);
+
+            //var rightWindowCommandsVisibility = this.RightWindowCommandsOverlayBehavior.HasFlag(WindowCommandsOverlayBehavior.HiddenTitleBar) && !this.UseNoneWindowStyle ? Visibility.Visible : newVisibility;
+            //this.RightWindowCommandsPresenter?.SetCurrentValue(VisibilityProperty, rightWindowCommandsVisibility);
+
+            //var windowButtonCommandsVisibility = this.WindowButtonCommandsOverlayBehavior.HasFlag(WindowCommandsOverlayBehavior.HiddenTitleBar) ? Visibility.Visible : newVisibility;
+            //this.WindowButtonCommandsPresenter?.SetCurrentValue(VisibilityProperty, windowButtonCommandsVisibility);
+
+            this.SetWindowEvents();
+        }
+
 
         private void ClearWindowEvents()
         {

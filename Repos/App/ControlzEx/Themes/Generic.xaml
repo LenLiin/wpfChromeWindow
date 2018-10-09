@@ -8,6 +8,7 @@
         <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/Glow.xaml" />
         <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/WindowChromeWindow.xaml" />
         <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/ContentControlEx.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/ControlzEx;component/Themes/WindowContentControl.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- set up default styles for custom Controlz controls -->
